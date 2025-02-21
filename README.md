@@ -14,6 +14,8 @@ Read the PowerPoint on Canvas.
 
 ## TEST PUSHING __ TRACY
 
+## test minnie
+
 ## Introduction	
 > Introduce your program. What’s the point of the project?
 ## Description
