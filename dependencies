@@ -1,0 +1,4 @@
+networkx
+pandas
+
+pip install pandas networkx
