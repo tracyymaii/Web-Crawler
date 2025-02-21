@@ -1,0 +1,31 @@
+REQUIREMENT:
+
+You will load this graph into memory and do the following:
+    • Calculate the All-pairs Shortest Paths. Store this data in a separate file.
+    • Calculate the Closeness Centrality measure for each node.Store this data in a CSV file (node,value).
+    • Output to screen:
+        • Graph’s most central node.
+        • Sequence of nodes that represent the longest path.
+    • Given by the user the values d (for depth) and n (for node ID), your program will create a subgraph made by node n and all reachable nodes from it with a depth of d. You will display this new graph.
+    • Given by the user the values s and d (source and destination), you will query the all-pairs shortest path table to output the shortest path distance between s and d.
+
+
+You are super-encouraged to use a graph library. However, the
+closeness centrality measure MUST be calculated by YOU
+without using the library.
+
+
+OUTPUT:
+$ ./graph-analyzer data.txt
+    Creates the files:
+        data-apsp.csv
+        data-closeness.csv
+    Outputs to screen:
+        the graph’s most central node
+        the longest path (NOT JUST THE VALUE)
+$ ./graph-analyzer data.txt –g 123 5
+    Outputs to screen:
+        A graphical representation of the subgraph that starts at node 123 and goes to depth 5
+$ ./graph-analyzer data.txt –p 333 234
+    Outputs to screen:
+        The value of the shortest path from node 333 to 234.
