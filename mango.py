@@ -33,9 +33,15 @@ start_node = 123 #start at note 123
 
 # subgraph start at note 123
 subG = nx.ego_graph(G, start_node, radius=5, center=True, undirected=False)
+
+# calculate and save closeness centrality to file
 closeness_centrality = nx.closeness_centrality(subG)
 save_to_csv(closeness_centrality, "closeness-123-5.csv")
 
+# Find the node with the highest centrality
+most_central_node = max(closeness_centrality, key=closeness_centrality.get)
+
+print("most central node: ", most_central_node)
 print("done!")
 
 # print("Graph successfully created with", subG.number_of_nodes(), "nodes and", subG.number_of_edges(), "edges.")
