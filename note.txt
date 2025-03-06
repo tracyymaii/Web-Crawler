@@ -18,8 +18,8 @@ without using the library.
 OUTPUT:
 $ ./graph-analyzer data.txt
     Creates the files:
-        data-apsp.csv
-        data-closeness.csv
+        apsp-123-5.csv
+        closeness-123-5.csv
     Outputs to screen:
         the graph’s most central node
         the longest path (NOT JUST THE VALUE)

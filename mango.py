@@ -1,5 +1,10 @@
+import matplotlib
+matplotlib.use('TkAgg')
+
 import networkx as nx # to make the graph
 import pandas as pd # handle data
+import matplotlib.pyplot as plt # graph visual 
+import argparse
 
 # get closeness centrality list
 def closeness_centrality(G):
@@ -16,32 +21,64 @@ def closeness_centrality(G):
 
     return centrality
 
-def save_to_csv(data, filename):
-    df = pd.DataFrame(data.items(), columns=["node", "value"])
+def save_to_csv(data, filename, columns = []):
+    if columns:
+        df = pd.DataFrame(data.items(), columns = columns)
+    else:
+        df = pd.DataFrame(data.items())
     df.to_csv(filename, index=False)
 
+def draw_graph(G):
+    closeness_centrality = nx.closeness_centrality(G)
+    most_central_node = max(closeness_centrality, key=closeness_centrality.get)
 
-# load graph
-G = nx.read_edgelist('web-Google.txt', create_using=nx.DiGraph(), nodetype=int)
+    node_colors = ["yellowgreen" if node == most_central_node else "pink" for node in G]
 
-start_node = 123 #start at note 123
+    plt.figure(figsize = (9,8))
+    nx.draw_spring(G, arrows = True, with_labels = True, node_color = node_colors, node_size = 1500, font_size = 10)
+    plt.savefig("graph.png")
+    plt.show()
 
-# sub_nodes = list(nx.bfs_edges(G, source = start_node, depth_limit = 5))
-# sub_nodes = set([start_node] + [v for u, v in sub_nodes])
+def main():
+    parser = argparse.ArgumentParser(description = "This script read edge list from txt file and ...")
+    
+    parser.add_argument("filename", type = str, help = "Input file name (e.g., web-Google.txt)")
+    parser.add_argument("-g", nargs=2, type = int, help = "")
+    parser.add_argument("-p", nargs=2, type = int, help = "")
 
-# subG = G.subgraph(sub_nodes)
+    args = parser.parse_args()
 
-# subgraph start at note 123
-subG = nx.ego_graph(G, start_node, radius=5, center=True, undirected=False)
+    G = nx.read_edgelist(args.filename, create_using=nx.DiGraph(), nodetype=int)
 
-# calculate and save closeness centrality to file
-closeness_centrality = nx.closeness_centrality(subG)
-save_to_csv(closeness_centrality, "closeness-123-5.csv")
+    if not args.g and not args.p:
+        print("processing", args.filename)
 
-# Find the node with the highest centrality
-most_central_node = max(closeness_centrality, key=closeness_centrality.get)
+        start_node = 123 #start at note 123
+        depth = 5 #defined depth
 
-print("most central node: ", most_central_node)
-print("done!")
+        # subgraph start at note 123
+        subG = nx.ego_graph(G, start_node, radius=depth, center=True, undirected=False)
 
-# print("Graph successfully created with", subG.number_of_nodes(), "nodes and", subG.number_of_edges(), "edges.")
+        # calculate and save closeness centrality to file
+        closeness_centrality = nx.closeness_centrality(subG)
+        save_to_csv(closeness_centrality, "closeness-123-5.csv", ["node", "value"])
+        print("created: closeness-123-5.csv")
+
+        # Find the node with the highest centrality
+        most_central_node = max(closeness_centrality, key=closeness_centrality.get)
+        print("most central node:", most_central_node)
+
+    if args.g:
+        print("drawing graph")
+        subG = nx.ego_graph(G, args.g[0], radius=args.g[1], center=True, undirected=False)
+        draw_graph(subG)
+        print("done drawing")
+    elif args.p:
+        print("processing shortest path from", args.p[0], "to", args.p[1])
+        shortest_path = nx.shortest_path_length(G, source=args.p[0], target=args.p[1])
+        print("Shortest Path Length from", args.p[0], "to", args.p[1], ":", shortest_path)
+
+    print("done!")
+
+if __name__ == "__main__":
+    main()
