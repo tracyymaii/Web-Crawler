@@ -65,7 +65,7 @@ def longestPaths(graph, node_list):
                 if neighbor not in visited:
                     stack.append((neighbor, path + [neighbor], visited | {neighbor}))
     
-    print(f"Max Length: {maxLen}")
+    print(f"Longest Path Length: {maxLen}")
     print(f"Total Number of Paths with the Same Length: {numLongestPaths}")
     print(f"The First Longest Path: {longestPathList}")
             

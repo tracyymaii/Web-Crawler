@@ -18,13 +18,21 @@ Read the PowerPoint on Canvas.
 Our program does various graph analyses on real data from Kaggle.
 The graph that we analyze represent the connection of websites from one to another. We built our graph based off of a list of edges. From the data, we can determine that this is a directed unweighted graph.
 
-## Description
-> Describe what your program does. Also describe closeness centrality and how you implemented it. Remember to include snipets of code in your explanation. (Is it possible to link to your actual code?)
+## Description -- Our Program Does the Following: 
+### - Builds the Neccessary Graphs to Analyze
+> 
+    - Calculates the All Pairs Shortest Paths
+>
+    - Calculates the Longest Path
+>
+    - Calculates the Shortest Path
+>
+    - Calculates Closeness Centrality
 
-Our program does the following: 
-    - Builds a graph using NetworkX based off of the list of edges from 
-      the Kaggle
-    - 
+    - Outputs a Graphical Representation of the Most Central Node
+    
+      
+    
 ## Requirements	
 > Device and application requirements for your program.
 ## User Manual
