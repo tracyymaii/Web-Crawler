@@ -19,10 +19,11 @@ Our program does various graph analyses on real data from Kaggle.
 The graph that we analyze represent the connection of websites from one to another. We built our graph based off of a list of edges. From the data, we can determine that this is a directed unweighted graph.
 
 ## Description -- Our Program Does the Following: 
-### - Builds the Neccessary Graphs to Analyze
-> 
-    - Calculates the All Pairs Shortest Paths
->
+> dfs
+### Builds the Neccessary Graphs to Analyze
+> dfs
+### Calculates the All Pairs Shortest Paths
+> d
     - Calculates the Longest Path
 >
     - Calculates the Shortest Path
