@@ -4,7 +4,10 @@ import pandas as pd # To handle tabular data
 def main():
     subG = subGraphCreation()
     node_list = nodeListCreation(subG)
-    apsp_calculation(subG)
+    if (nx.is_directed_acyclic_graph(subG)):
+        isDag(subG)
+    else:
+        apsp_calculation(subG)
     longestPaths(subG, node_list)
 
 # Creation of the subgraph based off of the original graph
@@ -38,13 +41,21 @@ def apsp_calculation(graph):
     # Save to CSV
     df.to_csv("apsp-123-5.csv", index=False)
 
+# Calculates the longest path if the input graph happens to be a directed acyclic graph
+def isDag(graph):
+    longestPath = nx.dag_longest_path(graph)
+    longestPathLen = len(longestPath)
+
+    print(f"Longest Path Length: {longestPathLen}")
+    print(f"The Longest Path: {longestPath}")
+
 # Finds the longest *simple* path of the graph using DFS
 def longestPaths(graph, node_list):
     longestPathList = []
     maxLen = 0
     numLongestPaths = 0
 
-    # DFS initialization
+    # DFS initialization by using a stack
     for start in node_list:
         stack = [(start, [start], set([start]))] # Current Node, Path, Visited Set
 
