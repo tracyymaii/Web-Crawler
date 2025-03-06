@@ -1,15 +1,15 @@
-import networkx as nx # to make the graph
-# import matplotlib.pyplot as plt
-import pandas as pd # to handle tabular data
+import networkx as nx # To make the graph
+import pandas as pd # To handle tabular data
 
 def main():
     subG = subGraphCreation()
     node_list = nodeListCreation(subG)
     apsp_calculation(subG)
-    longestpath(subG, node_list)
+    longestPaths(subG, node_list)
 
+# Creation of the subgraph based off of the original graph
 def subGraphCreation():
-    # creates the graph based off of Kaggle
+    # Creates the graph based off of Kaggle
     G = nx.read_edgelist('web-Google.txt', create_using=nx.DiGraph(), nodetype=int)
     print("Graph successfully created with", G.number_of_nodes(), "nodes and", G.number_of_edges(), "edges.")
 
@@ -25,61 +25,50 @@ def nodeListCreation(graph):
     node_list = list(graph.nodes())
     return node_list
 
+# Calculates the All Pairs Shortest Paths for the input graph
 def apsp_calculation(graph):
-    
+
+    # Uses NetworkX All Pairs Shortest Path function to calculate all the shortest paths
     paths = nx.all_pairs_shortest_path(graph)
 
-    # turns paths into an easy list to turn into a dataframe and save to csv 
+    # Turns paths into an easy list to turn into a dataframe and save to csv 
     paths_list = list(paths)
     df = pd.DataFrame({'path':paths_list})
 
     # Save to CSV
     df.to_csv("apsp-123-5.csv", index=False)
 
-# must find all simple paths, and find the longest path from there
-# because if we attempt to just find the longest path directly, it will not work since the graph has cycles
-
-# for all simple paths,
-# use networkx to get all simple paths
-# but then keep a counter for the max length,
-# and another data structure for the paths
-# then if the cur path len is = the cur max len
-# then add it to the data structure
-# if the cur path len is > cur max len  
-# empty the data structure
-# then add the curr path to the structure
-
-def longestpath(graph, node_list):
-
-    allpaths = []
-
-    # paths = nx.all_simple_paths(graph, source=node_list[0], target=node_list[5])
-    # list_path = list(paths)
-    # print(list_path)
-    
-    for node1 in node_list:
-        for node2 in node_list:
-            paths = nx.all_simple_paths(graph, source=node1, target=node2)
-            list_path = list(paths)
-            allpaths.append(list_path)
-
-    print(f"path in index 5: {allpaths[5]}")
-    print(f"path in index 13: {allpaths[13]}")
-    
+# Finds the longest *simple* path of the graph using DFS
+def longestPaths(graph, node_list):
+    longestPathList = []
     maxLen = 0
-    longestPathsList = []
+    numLongestPaths = 0
 
-    # for items in allpaths:
-    #     if len(items) > maxLen:
-    #         maxLen = len(items)
-    #         longestPathsList.clear()
-    #         longestPathsList.append(items)
-    #     elif len(items) == maxLen:
-    #         longestPathsList.append(items)
+    # DFS initialization
+    for start in node_list:
+        stack = [(start, [start], set([start]))] # Current Node, Path, Visited Set
 
-    print(f"Longest Path Length: {maxLen}")
-    print(f"Longest Path Lists {longestPathsList}")
+        while stack:
+            node, path, visited = stack.pop()
 
+            # Keeps track of the longest length, initial longest path, and 
+            # number of paths with the same length as the longest length
+            if len(path) > maxLen:
+                maxLen = len(path)
+                longestPathList.clear()
+                longestPathList.append(path)
+                numLongestPaths = 1
+            elif len(path) == maxLen:
+                numLongestPaths += 1
+
+            for neighbor in graph.successors(node):
+                if neighbor not in visited:
+                    stack.append((neighbor, path + [neighbor], visited | {neighbor}))
+    
+    print(f"Max Length: {maxLen}")
+    print(f"Total Number of Paths with the Same Length: {numLongestPaths}")
+    print(f"The First Longest Path: {longestPathList}")
+            
 
 if __name__ == "__main__":
     main()
