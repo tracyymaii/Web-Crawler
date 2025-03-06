@@ -16,22 +16,30 @@ Read the PowerPoint on Canvas.
 > Introduce your program. What’s the point of the project?
 
 Our program does various graph analyses on real data from Kaggle.
-The graph that we analyze represent the connection of websites from one to another. We built our graph based off of a list of edges. From the data, we can determine that this is a directed unweighted graph.
+The graph that we analyze represent the connection of websites from one to another. We built our graph based off of a list of edges. From the data, we can determine that this is a directed unweighted graph. Our goal was to apply classroom computer science concepts and analyze how they scale to real-world data.
 
 ## Description -- Our Program Does the Following: 
-> dfs
 ### Builds the Neccessary Graphs to Analyze
-> dfs
-### Calculates the All Pairs Shortest Paths
-> d
-    - Calculates the Longest Path
->
-    - Calculates the Shortest Path
->
-    - Calculates Closeness Centrality
+> We used NetworkX, a graph library compatible with Python to build the original graph based off the Kaggle dataset. From there, we created a subgraph from node 123 including nodes it reached with a maximum depth of 5. This subgraph was created because  the following calculations would have taken up too much storage if it was done on the original graph.
 
-    - Outputs a Graphical Representation of the Most Central Node
-    
+### Calculates the All Pairs Shortest Paths
+> The All Pairs Shortest Paths was calculated on the subgraph created and discussed earlier with a NetworkX function. These paths were turned into lists, to make it easier to turn into dataframes to format into a csv file. 
+
+### Calculates the Longest Path
+> We decided to calculate the longest path by running DFS from all the nodes. Originally, we planned on using NetworkX's simple path functions, however, decided to switch to DFS. More about our decision can be read below in "Reflection". 
+
+By using DFS, we are focusing on the longest simple path. DFS is optimal for calculating the longest path because it keeps track of the longest current path. This is very memory efficient. However, since we are focused on the finding the longest *simple* path, the caveat is that there is the possibility of the longest path having cycles, and this would go undetected by our program. 
+
+While doing DFS on the graph, once the entirety of a path has been traversed, its length is compared with the maximum length. If the current path is larger than the maximum length, then it will replace the maximum length and save the current path as the longest path. If the graph traverses more paths with the same length as the maximum length, it will add one to to the number of paths with the same maximum length. 
+
+### Calculates the Shortest Path
+> The shortest path is calculated based on the nodes from user input using a NetworkX function. These nodes are checked to ensure that they exist in the graph, and that there is a path between them. Then the length of the shortest path is outputted to the screen. Otherwise, an error message is outputted.
+
+### Calculates Closeness Centrality
+> 
+
+### Outputs a Graphical Representation of the Most Central Node
+>
       
     
 ## Requirements	
