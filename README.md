@@ -1,9 +1,9 @@
 # Big Data Graph Analysis
 > Contributors:
 > 
-> 🐣<i>Tracy Mai: https://github.com/tracyymaii</i>
+> 🐣<i>Tracy Mai   https://github.com/tracyymaii</i>
 >
-> 🥐<i>Minnie Cao: https://github.com/MinnieMwooh</i>
+> 🥐<i>Minnie Cao  https://github.com/MinnieMwooh</i>
 ## Introduction	
 > Our program does various graph analyses on real data from Kaggle.
 The graph that we analyze represent the connection of websites from one to another. We built our graph based off of a list of edges. From the data, we can determine that this is a directed unweighted graph. Our goal was to apply classroom computer science concepts and analyze how they scale to real-world data.
@@ -57,16 +57,20 @@ def get_closeness_centrality(graph):
 
 ## User Manual
 > Instructions are compatible with running the program in WSL Ubuntu on Python 3.10+:
->
-> **1.** Install dependencies from `requirements.txt`
+> **1.** Clone the repository in desired directory
+> ```
+> git clone https://github.com/csc3430-winter2025/graph-staybuddys.git
+> ```
+> **2.** Direct to graph-staybuddys
+> **3.** Install dependencies from `requirements.txt`
 >```
 >pip install -r requirements.txt
 >```
-> **2.** Install `tk` to support interactive plotting
+> **4.** Install `tk` to support interactive plotting
 >```
 >sudo apt install python3-tk
 >```
-> **3.** Run `yolkie.py` with a `.txt` file of graph's edge list and `-g` and/or `-p`
+> **5.** Run `yolkie.py` with a `.txt` file of graph's edge list and `-g` and/or `-p`
 >```
 >python3 yolkie.py web-Google.txt -g <start-node> <depth> -p <source-node> <target-node>
 >```
