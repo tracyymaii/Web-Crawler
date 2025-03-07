@@ -27,7 +27,23 @@ The graph that we analyze represent the connection of websites from one to anoth
 ### Calculates Closeness Centrality
 > Closeness Centrality is a measure of how close a node is to all other nodes. The node with a high closeness centrality tends to be the one with the most incoming edges, compared to the other nodes in the graph.
 >
-> We calculated closeness centrality by first calculating the sum of the lengths of the shortest paths for each node. If the sum of the lengths of the shortest paths from that node is 0, the closeness centrality of the node would be 0 as well. Otherwise, the centrality of the node is calculated by the number of nodes minus one, divided by the sum of the lengths of the shortest paths from that node to all the nodes. This process is repeated for the entirety of the nodes in the graph to find the closeness centrality for all the nodes.
+> We calculated [closeness centrality](./mango.py) by first calculating the sum of the lengths of the shortest paths for each node. If the sum of the lengths of the shortest paths from that node is 0, the closeness centrality of the node would be 0 as well. Otherwise, the centrality of the node is calculated by the number of nodes minus one, divided by the sum of the lengths of the shortest paths from that node to all the nodes. This process is repeated for the entirety of the nodes in the graph to find the closeness centrality for all the nodes.
+
+```
+def closeness_centrality(G):
+    n = len(G)
+    centrality = {}
+
+    for node in G.nodes:
+        distances = nx.shortest_path_length(G, source = node)
+        total_distance = sum(distances.values())
+        if total_distance > 0:
+            centrality[node] = (n-1)/total_distance
+        else:
+            centrality[node] = 0
+
+    return centrality
+```
 
 ### Outputs a Graphical Representation of the Most Central Node
 > After closeness centrality is calculated for every node in the graph, the most central node graph is created with the help of NetworkX and MatPlotLib. The graph shows the most central node, and all of its incoming edges. The center of the most central node graph is colored differently, highlighting the node with the highest closeness centrality. This graph is outputted for users to see.
