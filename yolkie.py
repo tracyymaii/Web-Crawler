@@ -142,6 +142,10 @@ def main():
 
     args = parser.parse_args()
 
+    if not args.g and not args.p:
+        print("Error: no flag entered, atleast oone of -g or -p required")
+        raise SystemExit(1)
+
     # create initial graph
     try:
         graph = nx.read_edgelist(args.filename, create_using=nx.DiGraph(), nodetype=int)
