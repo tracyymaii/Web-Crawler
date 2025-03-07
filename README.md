@@ -87,6 +87,7 @@ def get_closeness_centrality(graph):
 > ### Successful Output of Our Program from Command Line
 >![image](https://github.com/user-attachments/assets/b06bdc27-e46d-4771-83d6-a8fca1090a25)
 >
+>
 >### Central Node Graph
 >![graph-0-1](https://github.com/user-attachments/assets/bf8ac4eb-485f-4c3c-a734-f86b7d7fd027)
 >
