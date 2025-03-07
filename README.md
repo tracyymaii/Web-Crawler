@@ -51,7 +51,6 @@ def get_closeness_centrality(graph):
 ## Requirements	
 > Our Requirements file, requirements.txt, shows everything that is necessary to run our program, libraries, etc. The user manual will go over how to use the requirements file in order to run out program.
 >
-> After testing the program on both of our relatively slow computers, running the entire program and all of it functions can take anywhere from ___ TIME to ____ TIME depending on the size of the graph and each computer system itself. We recommend setting at least this amount of time aside to run our program, and to watch anime whilst waiting. 
 
 ## User Manual
 > Program runs in WSL Ubuntu:
@@ -66,7 +65,7 @@ def get_closeness_centrality(graph):
 >```
 > **3.** Run `yolkie.py` with a `.txt` file of graph's edge list and `-g` and/or `-p`
 >```
->python3 yolkie.py <graph-edges>.txt -g <start-node> <depth> -p <source-node> <target-node>
+>python3 yolkie.py web-Google.txt -g <start-node> <depth> -p <source-node> <target-node>
 >```
 
 ## Reflection
