@@ -1,5 +1,4 @@
 # Big Data Graph Analysis
-Processing a BigData Graph with a third party library.
 
 ## Introduction	
 > Our program does various graph analyses on real data from Kaggle.
