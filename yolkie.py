@@ -1,3 +1,5 @@
+import argparse # get arguments
+
 import networkx as nx # to make the graph
 import pandas as pd # handle data
 
@@ -6,13 +8,10 @@ import matplotlib
 matplotlib.use('TkAgg') # allow pop-up GUI
 
 import matplotlib.pyplot as plt
-import numpy as np
-import matplotlib.animation as animation
-
-import argparse # get arguments
+from matplotlib import animation
 
 # Creates the list of nodes for the graph
-def nodeListCreation(graph):
+def node_list_creation(graph):
     node_list = list(graph.nodes())
     return node_list
 
@@ -22,16 +21,16 @@ def apsp_calculation(graph):
     # Uses NetworkX All Pairs Shortest Path function to calculate all the shortest paths
     paths = nx.all_pairs_shortest_path(graph)
 
-    # Turns paths into an easy list to turn into a dataframe and save to csv 
+    # Turns paths into an easy list to turn into a dataframe and save to csv
     paths_list = list(paths)
 
     return paths_list
 
 # Finds the longest *simple* path of the graph using DFS
-def longestPaths(graph, node_list):
-    longestPathList = []
-    maxLen = 0
-    numLongestPaths = 0
+def longest_paths(graph, node_list):
+    longest_path_list = []
+    max_len = 0
+    num_longest_paths = 0
 
     # DFS initialization
     for start in node_list:
@@ -40,23 +39,23 @@ def longestPaths(graph, node_list):
         while stack:
             node, path, visited = stack.pop()
 
-            # Keeps track of the longest length, initial longest path, and 
+            # Keeps track of the longest length, initial longest path, and
             # number of paths with the same length as the longest length
-            if len(path) - 1 > maxLen:
-                maxLen = len(path) - 1
-                longestPathList.clear()
-                longestPathList.append(path)
-                numLongestPaths = 1
-            elif len(path) - 1 == maxLen:
-                numLongestPaths += 1
+            if len(path) - 1 > max_len:
+                max_len = len(path) - 1
+                longest_path_list.clear()
+                longest_path_list.append(path)
+                num_longest_paths = 1
+            elif len(path) - 1 == max_len:
+                num_longest_paths += 1
 
             for neighbor in graph.successors(node):
                 if neighbor not in visited:
                     stack.append((neighbor, path + [neighbor], visited | {neighbor}))
-    
-    print(f"\nLongest Path Length: {maxLen}")
-    print(f"Total Number of Paths with the Same Length: {numLongestPaths}")
-    print(f"The First Longest Path: {longestPathList}")
+
+    print(f"\nLongest Path Length: {max_len}")
+    print(f"Total Number of Paths with the Same Length: {num_longest_paths}")
+    print(f"The First Longest Path: {longest_path_list}")
 
 # return closeness centrality list
 def get_closeness_centrality(graph):
@@ -116,7 +115,7 @@ def draw_graph(graph, graph_filename):
 
     if len(edges) > 0:
         try:
-            ani = animation.FuncAnimation(fig = fig, func = update, frames = len(edges), interval = 800, repeat = False)
+            ani = animation.FuncAnimation(fig = fig, func = update, frames = len(edges), interval = 500, repeat = False)
             ani.save(filename = ani_filename, writer = "pillow")
             plt.savefig(fig_filename)
             print(f"\nsaved:{ani_filename}")
@@ -129,16 +128,16 @@ def draw_graph(graph, graph_filename):
         print("")
 
     print(f"saved:{fig_filename}")
-    
+
     plt.show()
 
 # main function
 def main():
     # process argument from command line
-    parser = argparse.ArgumentParser(description = "This script read edge list from txt file and ...")
-    
+    parser = argparse.ArgumentParser()
+
     parser.add_argument("filename", type = str, help = "Input file name (e.g., web-Google.txt)")
-    parser.add_argument("-g", nargs=2, type = int, help = "Input integer fot start node and depth")
+    parser.add_argument("-g", nargs=2, type = int, help = "Input integer for start node and depth")
     parser.add_argument("-p", nargs=2, type = int, help = "Input integer for source and target node")
 
     args = parser.parse_args()
@@ -153,15 +152,15 @@ def main():
         print(f"Unexpected error: {e}")
         raise SystemExit(1)
 
-    # no flag scenario: 
+    # no flag scenario:
     # - save all pair shortest path and closeness centrality list with provided start node and depth
     # - output most central node
     # - output longest path
     # - draw and show sub graph
     if args.g:
         if graph.has_node(args.g[0]):
-            start_node = args.g[0] 
-            depth = args.g[1] 
+            start_node = args.g[0]
+            depth = args.g[1]
 
             suffix = "-" + str(start_node) + "-" + str(depth)
             
@@ -186,8 +185,8 @@ def main():
             print("\nmost central node:", most_central_node)
 
             # find and print longest path
-            node_list = nodeListCreation(sub_graph)
-            longestPaths(sub_graph, node_list)
+            node_list = node_list_creation(sub_graph)
+            longest_paths(sub_graph, node_list)
 
             # draw graph
             draw_graph(sub_graph, graph_filename)
@@ -205,9 +204,6 @@ def main():
             raise SystemExit(1)
         except nx.NetworkXNoPath:
             print(f"there is no patch from {args.p[0]} to {args.p[1]}")
-        except nx.ValueError:
-            print("Error: unsupported method")
-            raise SystemExit(1)
         except Exception as e:
             print(f"Unexpected error: {e}")
             raise SystemExit(1)
