@@ -1,6 +1,8 @@
 # Big Data Graph Analysis
 > Contributors:
+> 
 > 🐣<i>Tracy Mai: https://github.com/tracyymaii</i>
+>
 > 🥐<i>Minnie Cao: https://github.com/MinnieMwooh</i>
 ## Introduction	
 > Our program does various graph analyses on real data from Kaggle.
