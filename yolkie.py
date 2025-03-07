@@ -83,7 +83,6 @@ def save_to_csv(data, filename, columns = None):
             df = pd.DataFrame(data)
             df.to_csv(filename, mode = "w", index = False, header = False)
     except Exception as e:
-      #  print(f"Unexpected error: {e}")
         raise SystemExit(f"Unexpected error: {e}")
 
 # draw graph graph in spring layout, with most central node having a different color
@@ -120,7 +119,6 @@ def draw_graph(graph, graph_filename):
             plt.savefig(fig_filename)
             print(f"\nsaved:{ani_filename}")
         except Exception as e:
-           # print(f"Unexpected error: {e}")
             raise SystemExit(f"Unexpected error: {e}")
     else:
         nx.draw_networkx(graph, pos = pos, with_labels = True, node_color = "yellowgreen", node_size = 1500, font_size = 10, ax = ax)
@@ -143,17 +141,14 @@ def main():
     args = parser.parse_args()
 
     if not args.g and not args.p:
-        # print("Error: no flag entered, atleast oone of -g or -p required")
         raise SystemExit("Error: no flag entered, atleast oone of -g or -p required")
 
     # create initial graph
     try:
         graph = nx.read_edgelist(args.filename, create_using=nx.DiGraph(), nodetype=int)
     except FileNotFoundError:
-        # print("Error: file not found")
         raise SystemExit("Error: file not found")
     except Exception as e:
-       # print(f"Unexpected error: {e}")
         raise SystemExit(f"Unexpected error: {e}")
 
     # no flag scenario:
@@ -195,7 +190,6 @@ def main():
             # draw graph
             draw_graph(sub_graph, graph_filename)
         else:
-           # print(f"Error: node {args.g[0]} is not in the graph")
             raise SystemExit(f"Error: node {args.g[0]} is not in the graph")
 
     # with -p: output shortest path length from two given nodes
@@ -204,12 +198,10 @@ def main():
             shortest_path = nx.shortest_path_length(graph, source=args.p[0], target=args.p[1])
             print(f"\nshortest path length from {args.p[0]} to {args.p[1]}: {shortest_path}")
         except nx.NodeNotFound:
-          #  print(f"Error: node {args.p[0]} or {args.p[1]} are not in the graph")
             raise SystemExit(f"Error: node {args.p[0]} or {args.p[1]} are not in the graph")
         except nx.NetworkXNoPath:
             print(f"there is no patch from {args.p[0]} to {args.p[1]}")
         except Exception as e:
-            # print(f"Unexpected error: {e}")
             raise SystemExit(f"Unexpected error: {e}")
 
     exit(0)
