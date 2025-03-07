@@ -98,6 +98,8 @@ def draw_graph(graph, graph_filename):
     # dynamic update
     def update(num):
         ax.clear()
+        if num == len(edges) - 1:
+            ax.set_title("done! close window to exit.")
         sub_graph = nx.DiGraph()
         sub_graph.add_edges_from(edges[: num + 1])
 
