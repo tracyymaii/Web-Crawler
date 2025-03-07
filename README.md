@@ -57,6 +57,7 @@ def get_closeness_centrality(graph):
 
 ## User Manual
 > Instructions are compatible with running the program in WSL Ubuntu on Python 3.10+:
+> 
 > **1.** Clone the repository in desired directory
 > ```
 > git clone https://github.com/csc3430-winter2025/graph-staybuddys.git
