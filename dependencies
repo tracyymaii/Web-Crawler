@@ -1,6 +1,0 @@
-networkx
-# pandas
-# matplotlib
-
-pip install pandas networkx
-pip install matplotlib
