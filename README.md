@@ -53,7 +53,7 @@ def get_closeness_centrality(graph):
 >
 
 ## User Manual
-> Program runs in WSL Ubuntu:
+> Instructions are compatible with running the program in WSL Ubuntu:
 >
 > **1.** Install dependencies from `requirements.txt`
 >```
@@ -83,7 +83,9 @@ def get_closeness_centrality(graph):
 
 
 ## Results
-> Succesful output of our program from command line
+
+### Succesful Output of Our Program from Command Line
+
 ![image](https://github.com/user-attachments/assets/b06bdc27-e46d-4771-83d6-a8fca1090a25)
 > 
 
