@@ -62,6 +62,7 @@ def get_closeness_centrality(graph):
 > git clone https://github.com/csc3430-winter2025/graph-staybuddys.git
 > ```
 > **2.** Direct to graph-staybuddys
+> 
 > **3.** Install dependencies from `requirements.txt`
 >```
 >pip install -r requirements.txt
