@@ -30,12 +30,12 @@ The graph that we analyze represent the connection of websites from one to anoth
 > We calculated [closeness centrality](./mango.py) by first calculating the sum of the lengths of the shortest paths for each node. If the sum of the lengths of the shortest paths from that node is 0, the closeness centrality of the node would be 0 as well. Otherwise, the centrality of the node is calculated by the number of nodes minus one, divided by the sum of the lengths of the shortest paths from that node to all the nodes. This process is repeated for the entirety of the nodes in the graph to find the closeness centrality for all the nodes.
 
 ```
-def closeness_centrality(G):
-    n = len(G)
+def get_closeness_centrality(graph):
+    n = len(graph)
     centrality = {}
 
-    for node in G.nodes:
-        distances = nx.shortest_path_length(G, source = node)
+    for node in graph.nodes:
+        distances = nx.shortest_path_length(graph, target = node)
         total_distance = sum(distances.values())
         if total_distance > 0:
             centrality[node] = (n-1)/total_distance
@@ -54,10 +54,20 @@ def closeness_centrality(G):
 > After testing the program on both of our relatively slow computers, running the entire program and all of it functions can take anywhere from ___ TIME to ____ TIME depending on the size of the graph and each computer system itself. We recommend setting at least this amount of time aside to run our program, and to watch anime whilst waiting. 
 
 ## User Manual
-> The entirety of our program can be run from command line. 
-> **1.** Steps...
-> **2.** 
-> **3.**
+> Program runs in WSL Ubuntu:
+>
+> **1.** Install dependencies from `requirements.txt`
+>```
+>pip install -r requirements.txt
+>```
+> **2.** Install `tk` to support interactive plotting
+>```
+>sudo apt install python3-tk
+>```
+> **3.** Run `yolkie.py` with a `.txt` file of graph's edge list and `-g` and/or `-p`
+>```
+>python3 yolkie.py <graph-edges>.txt -g <start-node> <depth> -p <source-node> <target-node>
+>```
 
 ## Reflection
 > While completing this assignment, the algorithms that took the longest time for us to figure out were calculating the longest path and the closeness centrality.
