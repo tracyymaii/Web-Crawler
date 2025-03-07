@@ -1,5 +1,5 @@
 # Big Data Graph Analysis
-
+> Contributors: <i>Tracy Mai and Minnie Cao<\i>
 ## Introduction	
 > Our program does various graph analyses on real data from Kaggle.
 The graph that we analyze represent the connection of websites from one to another. We built our graph based off of a list of edges. From the data, we can determine that this is a directed unweighted graph. Our goal was to apply classroom computer science concepts and analyze how they scale to real-world data.
